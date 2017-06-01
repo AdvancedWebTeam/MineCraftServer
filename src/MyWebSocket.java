@@ -1,6 +1,8 @@
 
 
+/*
 import Worker.Worker;
+*/
 
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -24,7 +26,7 @@ public class MyWebSocket {
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
 
-    private static Worker worker = new Worker();
+    //private static Worker worker = new Worker();
 
     /**
      * 连接建立成功调用的方法
@@ -47,7 +49,7 @@ public class MyWebSocket {
         webSocketSet.remove(this);  //从set中删除
         subOnlineCount();           //在线数减1
         System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
-        if (getOnlineCount()==0) worker.close();
+        //if (getOnlineCount()==0) worker.close();
     }
 
     /**
@@ -68,7 +70,7 @@ public class MyWebSocket {
                 continue;
             }
         }
-        worker.doWork(message);
+        //worker.doWork(message);
     }
 
     /**
