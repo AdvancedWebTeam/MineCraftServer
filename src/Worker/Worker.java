@@ -2,7 +2,9 @@ package Worker;
 
 import Point_package.Point;
 import Point_package.Point_operationimpl;
+/*
 import MyWebSocket.MyWebSocket;
+*/
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -22,7 +24,7 @@ public class Worker {
             point_list = xx.initialization();
         }
     }
-    public void doInit(MyWebSocket myWebSocket) {
+    /*public void doInit(MyWebSocket myWebSocket) {
         for (Point p: point_list){
             Messege m = new Messege(new Action(p));
             try {
@@ -31,7 +33,7 @@ public class Worker {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
     public void close() {
         try {

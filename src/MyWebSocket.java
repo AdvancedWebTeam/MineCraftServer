@@ -1,4 +1,4 @@
-package MyWebSocket;
+
 
 import Worker.Worker;
 
@@ -36,7 +36,7 @@ public class MyWebSocket {
         webSocketSet.add(this);     //加入set中
         addOnlineCount();           //在线数加1
         System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
-        worker.doInit(this);
+        /*worker.doInit(this);*/
     }
 
     /**
