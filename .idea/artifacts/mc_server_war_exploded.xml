@@ -7,6 +7,10 @@
         <element id="directory" name="classes">
           <element id="module-output" name="mc_server" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="websocket-api" />
+          <element id="library" level="project" name="com.google.code.gson:gson:2.8.0" />
+        </element>
       </element>
     </root>
   </artifact>
