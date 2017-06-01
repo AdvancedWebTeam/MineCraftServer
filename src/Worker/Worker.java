@@ -26,9 +26,9 @@ public class Worker {
     }
     public void doInit(MyWebSocket myWebSocket) {
         for (Point p: point_list){
-            Messege m = new Messege(new Action(p));
+            Message m = new Message(new Action(p));
             try {
-                myWebSocket.sendMessage(messegeToJSONString(m));
+                myWebSocket.sendMessage(messageToJSONString(m));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -44,17 +44,27 @@ public class Worker {
     }
 
     public void doWork(String message) {
-        try(Reader reader = new StringReader(message)){
-            Gson gson = new GsonBuilder().create();
-            Messege m = gson.fromJson(reader, Messege.class);
-            System.out.println(m.Action.x+" "+m.Action.y+" "+m.Action.z);
-        } catch (IOException e) {
-            e.printStackTrace();
+        Message m = JSONStringToMessage(message);
+        if (m.Action!=null)
+        {
+            if (m.Action.action==0)
+                xx.addpoint(point_list, m.Action.x, m.Action.y, m.Action.z, m.Action.material);
+            else if (m.Action.action==1)
+                xx.removepoint(point_list, m.Action.x, m.Action.y, m.Action.z, m.Action.material);
         }
     }
+    private Message JSONStringToMessage(String message) {
+        Gson gson = new GsonBuilder().create();
+        Message m = gson.fromJson(message, Message.class);
+        System.out.println(m.Action.x+" "+m.Action.y+" "+m.Action.z);
+        return m;
 
-    private String messegeToJSONString(Messege m) {
-        return null;
+    }
+    private String messageToJSONString(Message m) {
+
+        Gson gson = new GsonBuilder().create();
+        return gson.toJson(m);
+
     }
 
 }

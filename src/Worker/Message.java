@@ -3,10 +3,10 @@ package Worker;
 /**
  * Created by lyz on 17-6-1.
  */
-public class Messege {
+public class Message {
     Action Action;
 
-    Messege(Action action) {
+    Message(Action action) {
         Action = action;
     }
 }
