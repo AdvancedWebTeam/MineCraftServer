@@ -1,6 +1,8 @@
 package Point_package;
 
-public class Point {
+import java.io.Serializable;
+
+public class Point implements Serializable{
 	private double x;
 	private double y;
 	private double z;
@@ -11,16 +13,16 @@ public class Point {
 		this.z=z;
 		material=mat;
 	}
-	public double getx(){
+	public double getX(){
 		return x;
 	}
-	public double gety(){
+	public double getY(){
 		return y;
 	}
-	public double getz(){
+	public double getZ(){
 		return z;
 	}
-	public int getmat(){
+	public int getMat(){
 		return material;
 	}
 }

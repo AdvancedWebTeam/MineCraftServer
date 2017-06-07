@@ -39,6 +39,7 @@ public class MyWebSocket {
         addOnlineCount();           //在线数加1
         System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
         worker.doInit(this);
+
     }
 
     /**
@@ -50,6 +51,9 @@ public class MyWebSocket {
         subOnlineCount();           //在线数减1
         System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
         if (getOnlineCount()==0) worker.close();
+        
+        transfer(worker.doLeave(session));
+
     }
 
     /**
@@ -62,15 +66,8 @@ public class MyWebSocket {
         System.out.println("来自客户端的消息:" + message);
 
         //群发消息
-        for(MyWebSocket item: webSocketSet){
-            try {
-                item.sendMessage(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-                continue;
-            }
-        }
-        worker.doWork(message);
+        transfer(message);
+        worker.doWork(message,session);
     }
 
     /**
@@ -92,6 +89,16 @@ public class MyWebSocket {
     public void sendMessage(String message) throws IOException{
         this.session.getBasicRemote().sendText(message);
         //this.session.getAsyncRemote().sendText(message);
+    }
+    private void transfer(String message){
+        for(MyWebSocket item: webSocketSet){
+            try {
+                item.sendMessage(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+                continue;
+            }
+        }
     }
 
     public static synchronized int getOnlineCount() {
