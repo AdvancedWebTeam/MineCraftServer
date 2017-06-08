@@ -20,6 +20,7 @@ public class Point_operationimpl implements Point_interface{
 			double z1=Math.abs(z-a.get(i).getZ());
 			if(x1<0.001&&y1<0.001&&z1<0.001&&(mat==a.get(i).getMat())){
 				a.remove(i);
+				System.out.println("sha bi");
 				return;
 			}
 		}
@@ -40,11 +41,11 @@ public class Point_operationimpl implements Point_interface{
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			a=(Vector<Point>) ois.readObject();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		return a;

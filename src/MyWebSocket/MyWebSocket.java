@@ -47,12 +47,15 @@ public class MyWebSocket {
      */
     @OnClose
     public void onClose(){
-        webSocketSet.remove(this);  //从set中删除
-        subOnlineCount();           //在线数减1
-        System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
+        if (webSocketSet.remove(this)) {
+            subOnlineCount();           //在线数减1
+            System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
+            transfer(worker.doLeave(session));
+        };  //从set中删除
 
 
-        transfer(worker.doLeave(session));
+
+
         if (getOnlineCount()==0) worker.close();
     }
 
@@ -79,8 +82,11 @@ public class MyWebSocket {
     public void onError(Session session, Throwable error){
         System.out.println("发生错误");
         error.printStackTrace();
-
-        transfer(worker.doLeave(session));
+        try {
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
