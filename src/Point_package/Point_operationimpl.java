@@ -1,19 +1,19 @@
 package Point_package;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.Vector;
 import java.util.Scanner;
 
 public class Point_operationimpl implements Point_interface{
-	public ArrayList<Point> initialization(){
-		ArrayList<Point> a=new ArrayList<Point>();
+	public Vector<Point> initialization(){
+		Vector<Point> a=new Vector<Point>();
 		return a;
 	}
-	public void addPoint(ArrayList<Point> a, double x, double y, double z, int mat){
+	public void addPoint(Vector<Point> a, double x, double y, double z, int mat){
 		Point t=new Point(x,y,z,mat);
 		a.add(t);
 	}
-	public void removePoint(ArrayList<Point> a, double x, double y, double z, int mat){
+	public void removePoint(Vector<Point> a, double x, double y, double z, int mat){
 		for(int i=0;i<a.size();i++){
 			double x1=Math.abs(x-a.get(i).getX());
 			double y1=Math.abs(y-a.get(i).getY());
@@ -26,19 +26,19 @@ public class Point_operationimpl implements Point_interface{
 
 	}
 	/* test  */
-	public void print(ArrayList<Point> a){
+	public void print(Vector<Point> a){
 		for(int i=0;i<a.size();i++){
 			System.out.println(a.get(i).getX()+" "+a.get(i).getY()+" "+a.get(i).getZ()+" "+a.get(i).getMat());
 		}
 	}
-	public ArrayList<Point> readio() {
+	public Vector<Point> readio() {
 		File file = new File("pointlist.txt");
 		FileInputStream fis = null;
-		ArrayList<Point> a = null;
+		Vector<Point> a = null;
 		try {
 			fis = new FileInputStream(file);
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			a=(ArrayList<Point>) ois.readObject();
+			a=(Vector<Point>) ois.readObject();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -49,7 +49,7 @@ public class Point_operationimpl implements Point_interface{
 
 		return a;
 	}
-	public void writeio(ArrayList<Point> a){
+	public void writeio(Vector<Point> a){
 		String oo="pointlist.txt";
 		File file1=new java.io.File(oo);
 		if(file1.exists()){
@@ -71,7 +71,7 @@ public class Point_operationimpl implements Point_interface{
 	/*  test */
 	public static void main(String args[]) throws IOException{
 /*		Point_operationimpl xx=new Point_operationimpl();
-		ArrayList<Point> a=xx.initialization();
+		Vector<Point> a=xx.initialization();
 		xx.addPoint(a, 0.1, 0.2, 0.3, 1);
 		xx.addPoint(a, 0.2, 0.3, 0.4, 4);
 		xx.addPoint(a, 0.2,0.4,0.5, 3);
@@ -79,7 +79,7 @@ public class Point_operationimpl implements Point_interface{
 		xx.writeio(a);
 		
 		System.out.println();
-		ArrayList<Point> b=xx.readio();
+		Vector<Point> b=xx.readio();
 		xx.print(b);*/
 	}
 }

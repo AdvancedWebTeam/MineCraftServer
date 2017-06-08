@@ -50,10 +50,10 @@ public class MyWebSocket {
         webSocketSet.remove(this);  //从set中删除
         subOnlineCount();           //在线数减1
         System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
-        if (getOnlineCount()==0) worker.close();
-        
-        transfer(worker.doLeave(session));
 
+
+        transfer(worker.doLeave(session));
+        if (getOnlineCount()==0) worker.close();
     }
 
     /**
@@ -63,7 +63,7 @@ public class MyWebSocket {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-        System.out.println("来自客户端的消息:" + message);
+        //System.out.println("来自客户端的消息:" + message);
 
         //群发消息
         transfer(message);
@@ -79,6 +79,8 @@ public class MyWebSocket {
     public void onError(Session session, Throwable error){
         System.out.println("发生错误");
         error.printStackTrace();
+
+        transfer(worker.doLeave(session));
     }
 
     /**
@@ -87,10 +89,14 @@ public class MyWebSocket {
      * @throws IOException
      */
     public void sendMessage(String message) throws IOException{
-        this.session.getBasicRemote().sendText(message);
+        synchronized (this) {
+            this.session.getBasicRemote().sendText(message);
+        }
+
         //this.session.getAsyncRemote().sendText(message);
     }
     private void transfer(String message){
+        if (message==null) return;
         for(MyWebSocket item: webSocketSet){
             try {
                 item.sendMessage(message);

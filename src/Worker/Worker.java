@@ -14,18 +14,19 @@ import Point_package.Action;
 
 import javax.websocket.Session;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Vector;
+import java.util.Hashtable;
+
 
 /**
  * Created by lyz on 17-6-1.
  */
 public class Worker {
-    private static ArrayList<Point> point_list;
-    private static ArrayList<Person> person_list;
+    private static Vector<Point> point_list;
+    private static Vector<Person> person_list;
     private static Point_operationimpl xx = new Point_operationimpl();
     private static Person_operationimpl yy = new Person_operationimpl();
-    private static HashMap<Session, String> personMap = new HashMap<>();
+    private static Hashtable<Session, String> personMap = new Hashtable<>();
     public Worker() {
         point_list = xx.readio();
         if (point_list==null) point_list = xx.initialization();

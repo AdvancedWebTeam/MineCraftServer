@@ -2,22 +2,23 @@ package Person_package;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Person_operationimpl implements Person_interface{
 
 	@Override
-	public ArrayList<Person> initialization() {
-		ArrayList<Person> a=new ArrayList<Person>();
+	public Vector<Person> initialization() {
+		Vector<Person> a=new Vector<Person>();
 		return a;
 	}
 
 	@Override
-	public void addPerson(ArrayList<Person> a, String id, double x, double y, double z, double movementX) {
+	public void addPerson(Vector<Person> a, String id, double x, double y, double z, double movementX) {
 		a.add(new Person(id, x, y, z, movementX));
 	}
 
 	@Override
-	public String addPerson(ArrayList<Person> a, double x, double y, double z, double movementX) {
+	public String addPerson(Vector<Person> a, double x, double y, double z, double movementX) {
 		Person p = new Person(x,y,z,movementX);
 		a.add(p);
 		return p.getId();
@@ -25,7 +26,7 @@ public class Person_operationimpl implements Person_interface{
 
 
 	@Override
-	public void removePerson(ArrayList<Person> a, String id) {
+	public void removePerson(Vector<Person> a, String id) {
 		// TODO Auto-generated method stub
 		for(int i=0;i<a.size();i++){
 		   if(a.get(i).getId().equals(id)){
@@ -37,7 +38,7 @@ public class Person_operationimpl implements Person_interface{
 	}
 
 	@Override
-	public void changePerson(ArrayList<Person> a, String id, double x,
+	public void changePerson(Vector<Person> a, String id, double x,
 							 double y, double z, double movementX) {
 		// TODO Auto-generated method stub
 
@@ -56,7 +57,7 @@ public class Person_operationimpl implements Person_interface{
 	}
 
 	@Override
-	public void print(ArrayList<Person> a) {
+	public void print(Vector<Person> a) {
 		// TODO Auto-generated method stub
 		for(int i=0;i<a.size();i++){
 			System.out.println(a.get(i).getId()+" "+a.get(i).getX()+" "+a.get(i).getY()+" "+a.get(i).getZ()+" "+a.get(i).getRotation());
@@ -64,13 +65,13 @@ public class Person_operationimpl implements Person_interface{
 	}
 
 	@Override
-	public ArrayList<Person> readio() {
+	public Vector<Person> readio() {
 		File file = new File("personlist.txt");
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(file);
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			ArrayList<Person> a=(ArrayList<Person>) ois.readObject();
+			Vector<Person> a=(Vector<Person>) ois.readObject();
 			return a;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -84,7 +85,7 @@ public class Person_operationimpl implements Person_interface{
 	}
 
 	@Override
-	public void writeio(ArrayList<Person> a) {
+	public void writeio(Vector<Person> a) {
 		String oo="personlist.txt";
 		File file1=new java.io.File(oo);
 		if(file1.exists()){
